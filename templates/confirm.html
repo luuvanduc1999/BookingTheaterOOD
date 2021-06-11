@@ -1,0 +1,116 @@
+{% extends 'base.html' %} 
+{% load static %}
+
+
+
+{% block content %}
+
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color: #34495e;">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#"><img src={% static 'movie.png' %} alt="" width="30" height="24" /> No.1</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" href="/"><i class="fas fa-home"></i>  Trang chủ</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/dashboard"><i class="fas fa-user-alt"></i> Tài khoản</a>
+        </li>
+
+        
+        <li class="nav-item">
+          <a class="nav-link active" href="/confirm"><i class="fas fa-check-circle"></i> Xác nhận xuất chiếu</a>
+        </li>
+      </ul>
+      <div class="d-flex">
+        
+        <button class="btn btn-danger" onclick="location.href='/accounts/logout'"><i class="fas fa-sign-out-alt"></i> Đăng xuất</button>
+
+      </div>
+    </div>
+  </div>
+</nav>
+
+
+<h3>Xác nhận xuất chiếu:</h3>
+<h4>Mã xác nhận của khách hàng: </h4>
+
+<form action="{% url 'confirm' %}" method="get">
+  <input class="box-search"name="q" type="text" placeholder="Mã xác nhận..." value={{ request.GET.q }}>
+  <button class="button-search btn btn-warning" type="submit" value="search">Đối chiếu</button>
+</form>
+
+
+{%if object_list|length > 0 %}
+<br>
+<div class=="detail"
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3 col-sm-6">
+        
+        <img width="100%" src="{{object_list.0.movie.url}}" />
+      </div>
+      <div class="col-md-3 col-sm-6">
+
+        <span><b>{{object_list.0.movie.name}} ({{object_list.0.movie.year}})</b> <br /></span>
+        <span>Phân loại độ tuổi: {{object_list.0.movie.rate}} <br /></span>          
+        <br>
+      </div>
+      <div class="col-md-3 col-sm-6 ">
+        <span>Thời gian chiếu: {{object_list.0.time}}-{{object_list.0.date}} <br /></span>
+        <span>Phòng chiếu: {{object_list.0.room.name}} <br /></span>
+        <span>Số lượng ghế: {{object_list.0.slot}} <br /></span>
+        <span>Loại máy chiếu: {{object_list.0.type}} <br /></span>
+      </div>
+      <div class="col-md-3 col-sm-6 ">
+        {% if object_list.0.status == "ON" %}
+             <button type="button" class="btn btn-success">Đang mở</button>
+
+        {% else %}
+             <button type="button" class="btn btn-danger  ">Đã hủy</button>
+            {% endif %}
+
+        {% if object_list.0.confirmed == "ON" %}
+             <button type="button" class="btn btn-success">Đã xác nhận</button>
+            <button type="button" class="btn btn-primary editTicket" data-bs-toggle="modal" data-bs-target="#confirmTicket" disabled>Xác nhận xuất chiếu</button>
+
+
+        {% else %}
+             <button type="button" class="btn btn-danger">Chưa xác nhận</button>
+              <button type="button" class="btn btn-primary editTicket" data-bs-toggle="modal" data-bs-target="#confirmTicket">Xác nhận xuất chiếu</button>
+
+            {% endif %}
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="confirmTicket" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Xác nhận xuất chiếu</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Bạn đã chắc chắn muốn xác nhận xuất chiếu <b>{{object_list.0.id}}</b> chưa?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                <a href="/confirm/{{object_list.0.confirm_code}}" >
+                    <button type="button" class="btn btn-primary">Xác nhận</button>
+                </a>
+            </div>
+            </div>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>
+{%endif%}
+
+{%endblock%}

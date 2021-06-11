@@ -13,13 +13,25 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf.urls import include
 from django.contrib import admin
+import django.contrib.auth.urls
 from django.urls import path
 import system.api_views
+import system.views
+from system.views import SearchResultsView, ConfirmPageView
 
 urlpatterns = [
+    path('', system.views.showHomePage),
+    path('infor', system.views.showInfo),
     path('admin/', admin.site.urls),
-    path('api/v1/post/<int:id>/', system.api_views.PostRetrieveUpdateDestroy.as_view()),
-    path('api/v1/post', system.api_views.PostList.as_view()),
-    path('api/v1/post/new', system.api_views.PostCreate.as_view())
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('dashboard/',system.views.editprofile, name='editprofile'),
+    path('order/', system.views.showTicket, name='showTicket'),
+    path('order/<idx>', system.views.showTicketID, name='showTicketID'),
+    path('booking/', SearchResultsView.as_view(), name='search_results'),
+    path('confirm/', ConfirmPageView.as_view(), name='confirm'),
+    path('confirm/<str:confirm_code>', system.views.confirm_by_code, name='confirm code'),
+    path('booking/<str:movie_id>', system.views.movie_booking, name='movie_booking'),
+    path('booking/<str:movie_id>/<str:room_id>', system.views.completeBooking, name='completeBooking'),
 ]

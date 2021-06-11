@@ -1,0 +1,60 @@
+{% load static %}
+
+<head>
+  <meta charset="UTF8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link
+    rel="stylesheet/less"
+    type="text/css"
+    href="{% static 'login.less' %}"
+  />
+  <script src="//cdn.jsdelivr.net/npm/less@3.13"></script>
+</head>
+
+<html>
+  <body>
+    <header>
+      <h1>HỆ THỐNG ĐẶT PHÒNG CHIẾU PHIM No1</h1>
+      <img class="logo" src={% static 'movie.png' %} />
+    </header>
+
+    <div class="login_form">
+
+      <div class="error">
+        {% block content %} {% if form.errors %}
+        <p>Tài khoản mật khẩu không đúng</p>
+        {% endif %} {% if next %} {% if user.is_authenticated %}
+        <p>
+          Tài khoản của bạn không được phép truy cập tính năng này.
+        </p>
+        {% else %}
+        <p>Vui lòng đăng nhập để sử dụng tính năng này</p>
+        {% endif %} {% endif %}
+      </div>
+
+      <div class="formX">
+        <form method="post" action="{% url 'login' %}">
+          {% csrf_token %}
+            <ul class="infor">
+              <li class="username">
+                <span>Tên <i class="fas fa-user-alt"></i> Tài khoản<br></span>
+                <span class="usernameInput">{{ form.username }}</span>
+             </li>
+            <li class="password">
+                <span>Mật khẩu<br></span>
+                <span class="passwordInput">{{ form.password }}</span>
+             </li>
+             </ul>
+          </table>
+          <button class="button_login" type="submit" value="Dang nhap">Dang nhap</button>
+          <input type="hidden" name="next" value="{{ next }}" />
+        </form>
+      </div>
+
+      {# Assumes you setup the password_reset view in your URLconf #}
+      <p><a href="{% url 'password_reset' %}">Quên mật khẩu  </a></p>
+
+      {% endblock %}
+    </div>
+  </body>
+</html>

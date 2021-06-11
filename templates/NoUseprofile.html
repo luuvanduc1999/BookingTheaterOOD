@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+  {% block style %}
+    <link rel="stylesheet/less"  type="text/css"  href="{% static 'style.less' %}" />
+  {% endblock %}
+
+{% block content %}
+<nav class="navbar navbar-inverse navbar-expand-lg" role="navigation">
+  <a class="navbar-brand" href="#">Phim</a>
+  <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse-01"></button>
+  <div class="collapse navbar-collapse" id="navbar-collapse-01">
+
+    <ul class="nav navbar-nav mr-auto">
+   
+      <li class="active"><a href="#fakelink"><i class="fas fa-user-alt"></i> Tài khoản</a></li>
+      
+      <li><a href="#fakelink">Xuat chieu</a></li>
+    </ul>
+    <button class="btn btn-danger my-2 my-lg-0" onclick="location.href='/accounts/logout'"><i class="fas fa-sign-out-alt"></i> Đăng xuất</button>
+  </div><!-- /.navbar-collapse -->
+</nav><!-- /navbar -->
+<div>
+<h3> Thong tin tai khoan</h3>
+
+<p>Ten: {{ profile.username }}</p>
+<p>Email: {{ profile.email }}</p>
+      
+</div>
+
+
+{% endblock %}

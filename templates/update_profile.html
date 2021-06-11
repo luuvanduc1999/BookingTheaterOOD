@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load static %}
+
+  {% block style %}
+    <link rel="stylesheet/less"  type="text/css"  href="{% static 'style.less' %}" />
+  {% endblock %}
+
+{% block content %}
+
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color: #34495e;">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#"><img src={% static 'movie.png' %} alt="" width="30" height="24" /> No.1</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" href="/"><i class="fas fa-home"></i>  Trang chủ</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/#"><i class="fas fa-user-alt"></i> Tài khoản</a>
+        </li>
+
+      {%if per%}
+        <li class="nav-item">
+          <a class="nav-link" href="/confirm"><i class="fas fa-check-circle"></i> Xác nhận xuất chiếu</a>
+        </li>
+      {%else%}
+      <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> <i class="fas fa-ticket-alt"></i>
+            Xuất chiếu
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="/booking">Đặt xuất chiếu</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="/order">Xuất chiếu của bạn</a></li>
+          </ul>
+        </li>
+      {%endif%}
+      </ul>
+      <div class="d-flex">
+        
+        <button class="btn btn-danger" onclick="location.href='/accounts/logout'"><i class="fas fa-sign-out-alt"></i> Đăng xuất</button>
+
+      </div>
+    </div>
+  </div>
+</nav>
+<div>
+<h3> Thông tin tài khoản</h3>
+      <div class="formX">
+        <form method="post">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <button class="button_login" type="submit" value="update">Cập nhật</button>
+        </form>
+      </div>
+
+</div>
+
+
+{% endblock %}

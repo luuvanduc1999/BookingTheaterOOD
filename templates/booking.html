@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color: #34495e;">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#"><img src={% static 'movie.png' %} alt="" width="30" height="24" /> No.1</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" href="/"><i class="fas fa-home"></i>  Trang chủ</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/dashboard"><i class="fas fa-user-alt"></i> Tài khoản</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle active" aria-current="page" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-ticket-alt"></i>
+            Xuất chiếu
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="/booking">Đặt xuất chiếu</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="/order">Xuất chiếu của bạn</a></li>
+          </ul>
+        </li>
+      </ul>
+      <div class="d-flex">
+        
+        <button class="btn btn-danger" onclick="location.href='/accounts/logout'"><i class="fas fa-sign-out-alt"></i> Đăng xuất</button>
+
+      </div>
+    </div>
+  </div>
+</nav>
+<!-- /navbar -->
+
+<h3>Đặt xuất chiếu</h3>
+<h4>Lựa chọn phim: </h4>
+<form action="{% url 'search_results' %}" method="get">
+  <input class="box-search"name="q" type="text" placeholder="Tên phim..." value={{ request.GET.q }}>
+  <button class="button-search btn btn-warning" type="submit" value="search">Tìm kiếm</button>
+</form>
+  <div class="search-result row">          
+    <div class="row">
+      {% for movie in object_list %}
+        <div class="col-md-3 col-sm-6">
+          <div class="thumb shadow-lg p-3 mb-5 bg-white rounded">
+            <img class="item-thumb" src="{{ movie.url }}" alt="{{ movie.name }}">
+            <div class="caption">
+              <h5>{{ movie.name }}</h5>
+              <p>{{ movie.year }}</p>
+              {% comment %} {% url 'movie_details' movie.id %} {% endcomment %}
+              <p><a class="btn btn-primary" href="{% url 'movie_booking' movie.id %}" role="button">Đặt ngay</a></p>
+            </div>
+          </div>
+        </div>
+
+      {% if forloop.counter != movie_list|length %}
+      {% endif %}
+      {% endfor %}
+      </div>
+    </div>
+
+
+{% endblock %}

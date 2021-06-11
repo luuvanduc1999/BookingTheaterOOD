@@ -1,0 +1,80 @@
+{% extends 'base.html' %} 
+{% load static %}
+
+
+{% block content %}
+
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color: #34495e;">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#"><img src={% static 'movie.png' %} alt="" width="30" height="24" /> No.1</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" href="/"><i class="fas fa-home"></i>  Trang chủ</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/dashboard"><i class="fas fa-user-alt"></i> Tài khoản</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle active" aria-current="page" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-ticket-alt"></i>
+            Xuất chiếu
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="/booking">Đặt xuất chiếu</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="/order">Xuất chiếu của bạn</a></li>
+          </ul>
+        </li>
+      </ul>
+      <div class="d-flex">
+        
+        <button class="btn btn-danger" onclick="location.href='/accounts/logout'"><i class="fas fa-sign-out-alt"></i> Đăng xuất</button>
+
+      </div>
+    </div>
+  </div>
+</nav>
+
+
+<h3>Hoàn tất đặt xuất chiếu</h3>
+      <div class="formX">
+        <form method="post">
+          {% csrf_token %}
+          Phim: <b>{{movie.name}} ({{movie.year}})</b> <br>
+          <img width="150" src={{movie.url}} />
+          <br>
+          Phòng chiếu: <b> {{room.name}} (Sức chứa tối đa: {{room.slot}})</b> <br>
+          Thời gian chiếu: <b> {{time}}, ngay {{date}}</b> <br>
+          Số lượng người xem: <span id="value_slot">0</span></p> 
+          <input type="range" name="slot" class="form-range" min="1" max="{{room.slot}}" required="" id="id_slot" onchange="changeSlide()">
+          {% comment %} <input type="hidden" name="slot" max="{{room.slot}}" value="0" required="" id="id_slot"/>  {% endcomment %}
+          Loại màn chiếu: 
+          <div class="form-check form-check-inline">
+            <input class="form-check-input radiob" type="radio" name="type" value="2D" required="" id="id_type_1">
+            <label class="form-check-label radiob" for="id_type_1"> 2D</label>
+          </div>
+          <div class="form-check form-check-inline">  
+            <input class="form-check-input radiob"  type="radio" name="type" value="3D" required="" id="id_type_2">    
+            <label class="form-check-label radiob" for="id_type_2"> 3D</label>      
+          </div>
+
+          <br>
+          <div class="btn-group  btn-group-toggle group-money" data-toggle="buttons">
+          <label class="btn btn-lg btn-secondary money" id="money">
+            0
+          </label>
+          <label class="btn btn-lg btn-secondary active">
+          VND
+          </label>
+          </div>
+          <br>  
+          <button class="btn btn-success btn-checkp btn-lg" type="submit" value="create">Xác nhận và đặt ngay</button>
+
+
+        </form>
+      </div>
+{% endblock %}
+
