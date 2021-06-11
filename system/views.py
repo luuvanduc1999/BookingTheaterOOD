@@ -38,10 +38,14 @@ def showTicket(request):
     if (len(obj)>0):
         item=obj[idx]
     else: item=None;
-    
+
     param = {}
     param["obj"] = obj
     param["item"] = item
+    if (item.type=="3D"):
+        param["price"] = "{:,}".format(item.slot*30000)
+    else:
+        param["price"] = "{:,}".format(item.slot*20000)
     return render(request, 'ticket-list.html', param)
 
 @login_required
@@ -54,6 +58,10 @@ def showTicketID(request, idx):
     param = {}
     param["obj"] = obj
     param["item"] = item
+    if (item.type=="3D"):
+        param["price"] = "{:,}".format(item.slot*30000)
+    else:
+        param["price"] = "{:,}".format(item.slot*20000)
     return render(request, 'ticket-list.html', param)
 
 

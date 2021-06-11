@@ -41,6 +41,7 @@
 
   <h3>Danh sách xuất chiếu đã đặt</h3>
 {%if item != null %}
+
 <div class=="detail"
   <div class="container">
     <div class="row">
@@ -49,18 +50,26 @@
         <img width="100%" src="{{item.movie.url}}" />
       </div>
       <div class="col-md-3 col-sm-6">
-
-        <span><b>{{item.movie.name}} ({{item.movie.year}})</b> <br /></span>
-        <span>Phân loại độ tuổi: {{item.movie.rate}} <br /></span>          
+        <button class="btn btn-warning group-money">{{item.movie.name}} ({{item.movie.year}})</button>
+        
         <br>
       </div>
       <div class="col-md-3 col-sm-6 ">
+        <span>Phân loại độ tuổi: {{item.movie.rate}} <br /></span>          
         <span>Thời gian chiếu: {{item.time}}-{{item.date}} <br /></span>
         <span>Phòng chiếu: {{item.room.name}} <br /></span>
         <span>Số lượng ghế: {{item.slot}} <br /></span>
         <span>Loại máy chiếu: {{item.type}} <br /></span>
       </div>
       <div class="col-md-3 col-sm-6 ">
+      <div class="btn-group  btn-group-toggle group-money" data-toggle="buttons">
+          <label class="btn btn-lg btn-secondary money" id="money">
+            {{price}}
+          </label>
+          <label class="btn btn-lg btn-secondary active">
+          VND
+          </label>
+      </div>
 
       <span><b>Mã xác nhận</b> (khi đến rạp): <b>{{item.confirm_code}}</b> <br /></span>
         {% if item.status == "ON" %}
@@ -77,7 +86,7 @@
              <button type="button" class="btn btn-danger">Chưa xác nhận</button>
             {% endif %}
 
-        <button class="btn btn-warning editTicket">Thay đổi xuất chiếu</button>
+        <button class="btn btn-primary group-money editTicket">Thay đổi xuất chiếu</button>
       </div>
     </div>
   </div>

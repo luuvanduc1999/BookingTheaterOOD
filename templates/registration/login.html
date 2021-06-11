@@ -46,13 +46,12 @@
              </li>
              </ul>
           </table>
-          <button class="button_login" type="submit" value="Dang nhap">Dang nhap</button>
+          <button class="button_login" type="submit" value="Dang nhap">Đăng nhập</button>
           <input type="hidden" name="next" value="{{ next }}" />
         </form>
       </div>
 
       {# Assumes you setup the password_reset view in your URLconf #}
-      <p><a href="{% url 'password_reset' %}">Quên mật khẩu  </a></p>
 
       {% endblock %}
     </div>

@@ -48,16 +48,16 @@
           <br>
           Phòng chiếu: <b> {{room.name}} (Sức chứa tối đa: {{room.slot}})</b> <br>
           Thời gian chiếu: <b> {{time}}, ngay {{date}}</b> <br>
-          Số lượng người xem: <span id="value_slot">0</span></p> 
-          <input type="range" name="slot" class="form-range" min="1" max="{{room.slot}}" required="" id="id_slot" onchange="changeSlide()">
+          Số lượng người xem: <span id="value_slot">1</span></p> 
+          <input type="range" name="slot" class="form-range" min="1" max="{{room.slot}}" value="1" required="" id="id_slot" onchange="changeSlide()">
           {% comment %} <input type="hidden" name="slot" max="{{room.slot}}" value="0" required="" id="id_slot"/>  {% endcomment %}
           Loại màn chiếu: 
           <div class="form-check form-check-inline">
-            <input class="form-check-input radiob" type="radio" name="type" value="2D" required="" id="id_type_1">
+            <input class="form-check-input radiob" type="radio" name="type" value="2D" required="" id="id_type_1" onchange="changeSlide();">
             <label class="form-check-label radiob" for="id_type_1"> 2D</label>
           </div>
           <div class="form-check form-check-inline">  
-            <input class="form-check-input radiob"  type="radio" name="type" value="3D" required="" id="id_type_2">    
+            <input class="form-check-input radiob"  type="radio" name="type" value="3D" required="" id="id_type_2" onchange="changeSlide();">    
             <label class="form-check-label radiob" for="id_type_2"> 3D</label>      
           </div>
 
