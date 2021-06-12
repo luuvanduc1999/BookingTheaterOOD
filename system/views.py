@@ -78,7 +78,7 @@ def createTicket(request):
 
 class SearchResultsView(ListView):
     model = Movie
-    paginate_by = 5
+    paginate_by = 10
     ordering = ['-year']
     template_name = 'booking.html'
 

@@ -3,23 +3,31 @@
 <head>
   <meta charset="UTF8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hệ thống đặt phòng chiếu No.1</title>
+  <link rel="icon" href="{% static 'movie.png' %}">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap" rel="stylesheet"> 
+      <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
   <link
-    rel="stylesheet/less"
+    rel="stylesheet"
     type="text/css"
-    href="{% static 'login.less' %}"
+    href="{% static 'login.css' %}"
   />
   <script src="//cdn.jsdelivr.net/npm/less@3.13"></script>
 </head>
 
 <html>
   <body>
-    <header>
-      <h1>HỆ THỐNG ĐẶT PHÒNG CHIẾU PHIM No1</h1>
-      <img class="logo" src={% static 'movie.png' %} />
-    </header>
 
-    <div class="login_form">
-
+    <div class="container">
+    <div class="row">
+      <div class="col-lg-10 col-xl-9 mx-auto">
+        <div class="card card-signin flex-row my-5">
+          <div class="card-img-left d-none d-md-flex">
+            <!-- Background image for card set in CSS! -->
+          </div>
+          <div class="card-body">
+            <h5 class="card-title text-center">Đăng nhập</h5>
       <div class="error">
         {% block content %} {% if form.errors %}
         <p>Tài khoản mật khẩu không đúng</p>
@@ -33,27 +41,34 @@
       </div>
 
       <div class="formX">
-        <form method="post" action="{% url 'login' %}">
+         <form method="post" action="{% url 'login' %}">
           {% csrf_token %}
-            <ul class="infor">
-              <li class="username">
-                <span>Tên <i class="fas fa-user-alt"></i> Tài khoản<br></span>
-                <span class="usernameInput">{{ form.username }}</span>
-             </li>
-            <li class="password">
-                <span>Mật khẩu<br></span>
-                <span class="passwordInput">{{ form.password }}</span>
-             </li>
-             </ul>
-          </table>
-          <button class="button_login" type="submit" value="Dang nhap">Đăng nhập</button>
-          <input type="hidden" name="next" value="{{ next }}" />
+              <div class="form-label-group">
+                <input class="form-control" type="text" name="username" placeholder="Username" autocapitalize="none" autocomplete="" value="" maxlength="150"  id="id_username" required >
+                <label for="id_username">Tên tài khoản</label>
+              </div>
+
+              <hr>
+
+              <div class="form-label-group">
+                <input class="form-control" type="password" name="password" placeholder="Password" autocomplete="new-password" id="id_password"  required>
+                <label for="id_password">Mật khẩu</label>
+              </div>
+                        <button class="button_login btn btn-lg btn-lock btn-block text-uppercase" type="submit" value="Dang nhap">Đăng nhập</button>
+                        <input type="hidden" name="next" value="{{ next }}" />
+              <a class="d-block text-center mt-2 small" href="#">Quên mật khẩu?</a>
+              <hr class="my-4">
         </form>
       </div>
-
-      {# Assumes you setup the password_reset view in your URLconf #}
-
-      {% endblock %}
+                </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
     </div>
   </body>
 </html>
+
+
