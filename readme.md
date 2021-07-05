@@ -1,4 +1,4 @@
-Giao dien sau dat ve:
+![alt text](/IMG/data_relattionship.png)
 
 **PC**
 
